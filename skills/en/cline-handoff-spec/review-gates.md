@@ -31,7 +31,7 @@ Used after the **executor** finishes a handoff (Cursor reviews Cline work, or Cl
 3. Score gates G1–G5. Each is **PASS** or **FAIL** with 1–3 evidence bullets (file:hunk or behavior).
 4. Decide:
    - All PASS → done path: ACTIVE `done`, then **record/update lesson** per [lessons.md](lessons.md) (mandatory): classify kind/facet/module/layer, capture `git log` short sha(s) or `pending`, set style_anchor. Put failed-gate `avoid` notes into the lesson when this PASS followed fix packs. Do not archive SPEC without an INDEX row.
-   - Any FAIL → fix-pack path (below); **do not** write a full lesson yet.
+   - Any FAIL → fix-pack path (below); **do not** write a full lesson yet; **must** emit ready-to-paste AI prompt with numbered 修改建议 (see Paste prompt section).
 5. Tell the user the verdict table first, then the paste prompt if failing (or `lesson recorded/updated` if PASS).
 
 ### G1 Allowlist
