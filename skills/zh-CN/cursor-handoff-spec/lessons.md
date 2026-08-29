@@ -27,27 +27,28 @@
 
 ## INDEX / 正文
 
-含 signature、kind/facet/module/layer、**git**（短 sha 或 `pending`）、style_anchor、fix_pattern、avoid 等。详见英文版 lessons.md 字段表。
+INDEX 含 `kind|facet|module|layer|signature|git|path`。正文含 style_anchor、git.branch/commits/status。未提交用 `pending`。
 
 ## 写 SPEC 前（强制、省 token）
 
-预算：工具 <30s，正文 ≤3 篇。分层检索：症状 → module → **facet** → kind。
-
-命中后：
-
-1. 读 ≤3 篇 `L-*.md`
-2. **必须读相关 git**（INDEX `git` ≠ `pending` 时）：
+1. rg INDEX（症状 / module / **facet** / kind），取 ≤3 条。  
+2. 读对应 `L-*.md`。  
+3. **若 git ≠ pending：必须读相关提交**  
    ```bash
    git show <sha> --stat --format='%h %s%n%an %ad' --date=short
-   git show <sha> -- <style_anchor 或 lesson 中至多 1–3 个文件>
-   ```
-   优先 `--stat`；完整 patch 每课最多 2 个文件。聊天回报：`git-read: <shas>`
-3. 规划对齐 style_anchor + 该 commit 中的写法，禁止另起冲突风格
+   git show <sha> -- <style_anchor 或 lesson 中 1–3 个文件>
+   ```  
+   优先 `--stat`；全文 patch 每课最多 2 个文件。规划中写清「来自 `<sha>` 的模式」。  
+4. SPEC `## Lessons applied` 引用 id + git sha。聊天汇报：`lessons: N hits; git-read: …`
 
 ## PASS 后必记
 
 分类 + git + INDEX。归档无 lesson = 未完成。
 
+## FAIL
+
+不写正式 lesson；等最终 PASS。门禁失败时由复审方给出**可粘贴 AI 提示词**（含分条修改建议）。
+
 ## 效率
 
-只扫 INDEX；≤3 正文；短 sha；回忆时要 `git show`；禁止全文 diff 进 SPEC。
+只扫 INDEX；≤3 正文；读命中 sha；禁止整库 diff 进 SPEC。
