@@ -12,7 +12,7 @@
 | **方案 → 规格** | 一方写出可执行 PRD/SPEC（`.cline/handoff/specs/`） |
 | **规格 → 改代码** | 另一方只改 Allowlist 内文件 |
 | **质量门禁** | G1–G5：名单 / 验收 / 回归 / 风格 / 最小改动 |
-| **修订单** | 门禁失败 → 具体 fix SPEC + 粘贴提示词 |
+| **修订单** | 门禁失败 → fix SPEC + **可直接粘贴的 AI 修改建议提示词** |
 | **Lessons 账本** | PASS 后记录 kind/facet/module/layer + **git sha**，便于检索 |
 
 ```text
@@ -78,7 +78,7 @@ Cline：设置 → Features → **Enable Skills**。
 - 同类 bug → 搜 signature  
 - 同模块 → 滤 `module`  
 - **不同模块同一功能类型** → 滤 `facet`  
-- 对齐风格 → 看 `style_anchor`，必要时 `git show <sha>`  
+- 对齐风格 → 看 `style_anchor`；lesson 已提交时 **必须** `git show <sha> --stat`（可再看关键文件）  
 
 未提交：`git: pending`，提交后说「补记 git」。
 

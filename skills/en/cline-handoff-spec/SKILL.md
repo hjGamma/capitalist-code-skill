@@ -63,8 +63,10 @@ Follow [review-gates.md](review-gates.md). Works for either executor; fix packs 
 | G4 Style | Fights local conventions |
 | G5 Minimal | Non-minimal / drive-by |
 
-**FAIL** → `SPEC-…-fix-N.md` + ACTIVE + paste prompt for **that** executor’s execute skill.  
+**FAIL** → `SPEC-…-fix-N.md` + ACTIVE + **chat 里必须给出可直接粘贴给执行方 AI 的提示词**（含分条修改建议，见 [review-gates.md](review-gates.md)）。  
 **PASS** → ACTIVE `done` + [lessons.md](lessons.md) record (**kind/facet/module/layer** + **git** sha or `pending`). Archive SPEC only together with lesson row.
+
+Before writing SPECs: lessons recall must **read related git** (`git show <sha> --stat` + targeted files) when INDEX git ≠ `pending` — see [lessons.md](lessons.md).
 
 ### Paste → fix (by executor)
 

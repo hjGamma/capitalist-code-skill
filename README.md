@@ -12,7 +12,7 @@
 | **Plan → Spec** | One agent writes a machine-executable PRD/SPEC under `.cline/handoff/specs/` |
 | **Spec → Code** | The other agent executes only the allowlisted files |
 | **Quality gates** | G1–G5 review (allowlist, acceptance, regression, style, minimal diff) |
-| **Fix packs** | Failed gates produce a concrete fix SPEC + paste prompt |
+| **Fix packs** | Failed gates → fix SPEC + **ready-to-paste AI prompt** with numbered change advice |
 | **Lessons ledger** | On PASS, record `kind` / `facet` / `module` / `layer` + **git sha** for cheap recall |
 
 ```text

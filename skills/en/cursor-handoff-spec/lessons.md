@@ -117,18 +117,27 @@ rg -i -n '\| *bugfix *\||\| *i18n *\|' .cline/handoff/lessons/INDEX.md
 ```
 
 3. Rank: facet match > module match > kind match > weak tag hit. Read top **≤3** bodies.
-4. When applying style: prefer hit’s **style_anchor** + **git.commits** (`git show <sha> --stat` only if needed — avoid full patch unless unclear).
-5. SPEC section if hits > 0:
+4. **Read related git (mandatory when `git.status` is `committed` / INDEX `git` ≠ `pending`)**:
+   For each selected lesson with a short sha:
+   ```bash
+   git show <sha> --stat --format='%h %s%n%an %ad' --date=short
+   # If style/facet match is the reason for the hit, also:
+   git show <sha> -- <style_anchor path or top 1-3 files from lesson>
+   ```
+   Budget: prefer `--stat` always; full file patch only for **≤2** files / lesson, skip binary/huge files. Summarize into planning as “pattern from `<sha>`: …”.
+   If `pending` or sha missing in this clone: note `git: unavailable` and rely on style_anchor + lesson body only.
+5. When applying style: prefer hit’s **style_anchor** + patterns observed in that commit (do not invent a conflicting approach).
+6. SPEC section if hits > 0:
 
 ```markdown
 ## Lessons applied
 
-- L-… (facet=…, module=…): <one line; cite style_anchor if style-relevant>
+- L-… (facet=…, module=…, git=<sha|pending>): <one line; cite style_anchor>
 ```
 
-Chat line: `lessons: N hits (ids…)` plus which tier (bug/module/facet).
+Chat line: `lessons: N hits (ids…); git-read: <shas or none>` plus which tier (bug/module/facet).
 
-**Do not** read all `L-*.md` or all old SPECs.
+**Do not** read all `L-*.md` or all old SPECs. **Do not** dump entire patches into the SPEC — cite sha + 1-line takeaway.
 
 ---
 
@@ -165,6 +174,7 @@ No full lesson until final PASS (`avoid` captures failed approaches).
 | Short sha + subject only | Duplicate near-identical lessons |
 | `pending` then 补记 git | Block recording until commit |
 | Shared TAXONOMY | Free-form essay categories |
+| `git show` hit shas on recall | Ignore committed lessons’ git history |
 
 ## Global fallback
 

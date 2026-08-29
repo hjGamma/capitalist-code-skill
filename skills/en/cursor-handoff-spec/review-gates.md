@@ -171,18 +171,44 @@ Concrete deletions (quote symbols or describe hunks):
 
 ## Paste prompt for user → executor (fix pack)
 
-Pick skill from ACTIVE `executor`. Fill paths:
+On **any FAIL**, you MUST give the user a **ready-to-paste AI prompt** in the chat reply (fenced `text` block). Do not only link the fix-pack path.
+
+### Required chat output on FAIL
+
+1. Gate table (G1–G5 PASS/FAIL + evidence).
+2. Write/update `specs/SPEC-…-fix-N.md`.
+3. Point ACTIVE at it.
+4. Emit **one** paste block below (fill concrete paths / file:hunk advice). The block must include:
+   - which execute skill
+   - fix-pack path
+   - bullet **修改建议** the executor can follow without re-reading the review chat (revert X, change Y to Z, mirror style_anchor / lesson git sha if relevant)
+
+Pick skill from ACTIVE `executor`:
 
 **executor: cline**
 ```text
-使用 skill execute-cline-spec。读取并严格执行 .cline/handoff/ACTIVE.md（fix pack：.cline/handoff/specs/SPEC-…-fix-N.md）。按「Revert / remove」先撤掉不合格改动，再按「Required edits」最小补丁修复。只改 allowlist。不要 commit。完成后汇报，并请对方重新质量门禁。
+使用 skill execute-cline-spec。读取并严格执行 .cline/handoff/ACTIVE.md（fix pack：.cline/handoff/specs/SPEC-…-fix-N.md）。
+
+修改建议（按顺序做，不要扩大范围）：
+1) Revert/remove：<具体文件与符号/hunk 意图>
+2) 最小补丁：<具体怎么改，对齐哪个 style_anchor 或 git sha>
+3) Verify：<命令或手工检查>
+4) 只改 allowlist；不要 commit；完成后汇报，并请对方重新质量门禁。
 ```
 
 **executor: cursor**
 ```text
-使用 skill execute-cursor-spec。读取并严格执行 .cline/handoff/ACTIVE.md（fix pack：.cline/handoff/specs/SPEC-…-fix-N.md）。按「Revert / remove」先撤掉不合格改动，再按「Required edits」最小补丁修复。只改 allowlist。不要 commit。完成后汇报，并请对方重新质量门禁。
+使用 skill execute-cursor-spec。读取并严格执行 .cline/handoff/ACTIVE.md（fix pack：.cline/handoff/specs/SPEC-…-fix-N.md）。
+
+修改建议（按顺序做，不要扩大范围）：
+1) Revert/remove：<具体文件与符号/hunk 意图>
+2) 最小补丁：<具体怎么改，对齐哪个 style_anchor 或 git sha>
+3) Verify：<命令或手工检查>
+4) 只改 allowlist；不要 commit；完成后汇报，并请对方重新质量门禁。
 ```
+
+If a failed gate relates to style (G4) or minimal (G5), the paste prompt MUST name the **style_anchor** and/or lesson **git sha** to mirror when one exists.
 
 ## Re-review
 
-After Cline applies a fix pack, run the same G1–G5 again on the **full** remaining diff vs original parent goal (not only the fix-pack hunks). New FAIL → `fix-(N+1)`.
+After the executor applies a fix pack, run the same G1–G5 again on the **full** remaining diff vs original parent goal (not only the fix-pack hunks). New FAIL → `fix-(N+1)` + new paste prompt.
